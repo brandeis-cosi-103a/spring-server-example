@@ -33,5 +33,4 @@ class into the application.
 
 There is also an example of installing the Guava module in
 [App.java](example/server/src/main/java/edu/brandeis/cosi103a/springexample/server/App.java). This is
-not necessary in this example, but is needed when trying to serialize or parse Guava objects, such
-as `ImmutableList`.
+is needed when trying to parse JSON into Guava objects, such as `ImmutableList`.

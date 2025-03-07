@@ -1,8 +1,13 @@
 package edu.brandeis.cosi103a.springexample.server;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.collect.ImmutableList;
 
 import edu.brandeis.cosi103a.springexample.generator.RandomNumberGenerator;
 
@@ -13,29 +18,30 @@ public class AppController {
 
 	// A "POJO" (Plain Old Java Object) to represent a request for a random number.
 	static class RandomRequest {
-		private int max;
-		public int getMax() {
-			return max;
+		private ImmutableList<Integer> maxes;
+
+		public ImmutableList<Integer> getMaxes() {
+			return maxes;
 		}
-		public void setMax(int max) {
-			this.max = max;
+		public void setMaxes(ImmutableList<Integer> maxes) {
+			this.maxes = maxes;
 		}
 	}
 
 	// A "POJO" (Plain Old Java Object) to represent a response containing a random number.
 	static class RandomResponse {
-		private int number;
+		private ImmutableList<Integer> numbers;
 
-		public RandomResponse(int number) {
-			this.number = number;
+		public RandomResponse(int[] numbers) {
+			this.numbers = ImmutableList.copyOf(Arrays.stream(numbers).boxed().collect(Collectors.toList()));
 		}
 
-		public int getNumber() {
-			return number;
+		public ImmutableList<Integer> getNumbers() {
+			return numbers;
 		}
 
-		public void setNumber(int number) {
-			this.number = number;
+		public void setNumbers(ImmutableList<Integer> numbers) {
+			this.numbers = numbers;
 		}
 	}
 
@@ -43,8 +49,13 @@ public class AppController {
 		this.rng = rng;
 	}
 
-    @PostMapping(value = "/generate", consumes = "application/json", produces = "application/json")
+	@PostMapping(value = "/generate", consumes = "application/json", produces = "application/json")
 	public RandomResponse greeting(@RequestBody RandomRequest request) {
-		return new RandomResponse(rng.generateRandomNumber(request.getMax()));
+		ImmutableList<Integer> maxes = request.getMaxes();
+		int[] builder = new int[maxes.size()];
+		for (int i = 0; i < maxes.size(); i++) {
+			builder[i] = rng.generateRandomNumber(maxes.get(i));
+		}
+		return new RandomResponse(builder);
 	}
 }
