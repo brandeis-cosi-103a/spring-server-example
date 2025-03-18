@@ -1,5 +1,6 @@
 # spring-server-example
-Example of a Spring Boot application as one sub-module in a multi-module Maven project
+Example of a Spring Boot application as one sub-module in a multi-module Maven project, and
+a Dockerfile to package up the server.
 
 The directory layout is:
 ```
@@ -34,3 +35,13 @@ class into the application.
 There is also an example of installing the Guava module in
 [App.java](example/server/src/main/java/edu/brandeis/cosi103a/springexample/server/App.java). This is
 is needed when trying to parse JSON into Guava objects, such as `ImmutableList`.
+
+# Dockerization
+
+This repo adds a simple [Dockerfile](example/server/Dockerfile) which packages a "fat JAR" (a JAR
+which contains application code AND all dependencies) into a container with JDK-23 installed.
+
+Note the critical "executions" section in the server's [pom.xml](example/server/pom.xml), under
+`<build><plugins>...`. This causes `mvn package` to produce a "fat JAR". Without this section, the
+produced jar would only include the compiled application classes, and the spring dependencies would
+need to be copied into the container separately.

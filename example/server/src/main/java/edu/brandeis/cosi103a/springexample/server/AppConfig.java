@@ -25,8 +25,7 @@ public class AppConfig {
     }
 
     /**
-    * This registers the Guava module with the Jac
-    * kson JSON mapper.
+    * This registers the Guava module with the Jackson JSON mapper.
     * This allows Jackson to serialize and deserialize Guava types,
     * such as ImmutableList.
     */

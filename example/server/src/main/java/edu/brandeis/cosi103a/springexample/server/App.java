@@ -8,7 +8,7 @@ public class App {
 
 	/**
 	* To test:
-	* curl -X POST -H "Content-Type: application/json" -d '{"max": 500}' http://localhost:8080/generate
+	* curl -X POST -H "Content-Type: application/json" -d '{"maxes": [500, 10]}' http://localhost:8080/generate
 	*/
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);

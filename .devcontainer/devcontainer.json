@@ -7,7 +7,8 @@
 	"features": {
 		"ghcr.io/devcontainers/features/java:1": {
 			"installMaven": true
-		}
+		},
+		"docker-in-docker": {}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
