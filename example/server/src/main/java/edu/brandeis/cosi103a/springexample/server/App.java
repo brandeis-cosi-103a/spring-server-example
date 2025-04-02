@@ -11,6 +11,7 @@ public class App {
 	* curl -X POST -H "Content-Type: application/json" -d '{"maxes": [500, 10]}' http://localhost:8080/generate
 	*/
 	public static void main(String[] args) {
+		System.out.println("Hi from the server!");
 		SpringApplication.run(App.class, args);
 	}
 }
